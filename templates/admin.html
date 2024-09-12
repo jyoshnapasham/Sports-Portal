@@ -1,0 +1,239 @@
+<!-- index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, 
+				initial-scale=1.0">
+    <link rel="stylesheet" href="static\css\adminstyle.css">
+    <link rel="stylesheet" type="text/css" href="static/css/event.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="static/css/style.css">
+    <link rel="stylesheet" href="static/css/bootstrap.min.css" />
+    <title>Dynamic Calendar</title>
+</head>
+
+<body>
+    <header>
+        <div class="container-fluid top-nav">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div id="google_translate_element"></div>
+                    </div>
+                    <div class="col-sm-4">
+                        <p style="margin-top: 10px;text-align: center;color: white"><i class="fa fa-phone "></i>
+                            8519943010 | <i class="fa fa-envelope "></i> info@sportsportal.com</p>
+                    </div>
+                    <!-- <div class="col-sm-4">
+                <ul class="login-icon">
+                  <li style="border-right: 2px solid white"><a href=""><span class="fa fa-sign-in">&nbspLogin</span></a></li>
+                  <li><a href=""><span class="fa fa-edit">&nbsppredict</span></a></li>
+                </ul>
+              </div> -->
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid " id="marquee_div">
+            <marquee>
+                <p>Champions keep playing until they get it right.</p>
+            </marquee>
+
+
+
+        </div>
+        <div class="container">
+            <div class="row">
+
+                <div class="col-sm-6">
+                    <img src="static\images\sportsportal.png" width="150px" height="90" align="left"
+                        style="margin: 10px">
+                    <!-- <h4 style="margin-top: 15px">National E-sports Portal</h1>
+                <p>
+                  Ministry of Youth Affairs & Sports<br>
+                  Government of India
+                </p> -->
+
+                </div>
+                <!-- <div class="col-sm-6">
+              <img src="static/images/khelo.png" width="200" height="100" align="right">
+              <img src="static/images/digital.png" width="200" height="100" align="right">
+            </div> -->
+
+
+            </div>
+        </div>
+
+        <nav>
+            <div class="container-fluid main_navbar" id="nav">
+
+                <ul class="main-icons">
+
+
+                    <li class="scroll" style="margin-right: 10px">
+                        <a class="Btn" href="/logout1">Logout</a>
+                    </li>
+                    <li>
+                        <form id="add_coaching_center1" action="/add_coaching_center1" method="POST">
+                            <a href="#" onclick="document.getElementById('add_coaching_center1').submit();">add coaching
+                                center</a>
+                        </form>
+                    </li>
+
+
+                </ul>
+
+
+            </div>
+
+
+        </nav>
+    </header>
+
+    <!-- <h2>Available Events</h2> -->
+    <br>
+    <br>
+
+
+    <!-- Main wrapper for the calendar application -->
+    <div class="wrapper">
+        <div class="container-calendar">
+            <div id="left">
+                <h1>Event calendar</h1>
+                <div id="event-section">
+                    <h3>Add Event</h3>
+                    <form id="event-form" method="POST" action="/add">
+                        <label for="eventDate">Date:</label>
+                        <input type="date" id="eventDate" name="eventDate" required><br>
+
+                        <label for="eventStartTime">Start Time:</label>
+                        <input type="time" id="eventStartTime" name="eventStartTime" required>
+
+                        <label for="eventEndTime">End Time:</label>
+                        <input type="time" id="eventEndTime" name="eventEndTime" required>
+
+                        <label for="eventTitle">Title:</label>
+                        <input type="text" id="eventTitle" name="eventTitle" placeholder="Event Title" required><br>
+
+                        <label for="eventDescription">Description:</label>
+                        <textarea id="eventDescription" name="eventDescription"
+                            placeholder="Event Description in (20words)" style="margin-top:5px"></textarea>
+
+                            <div id="liveAlertPlaceholder"></div>
+                            <button type="submit" class="btn btn-primary" id="liveAlertBtn">add</button>
+                            <script src="static\js\snippet.j"></script>
+                    </form>
+                </div>
+                <div id="reminder-section">
+                    <h3>Events</h3>
+                    <form id="adminviews" method="POST" action="/adminviews">
+                        <button class="Btn" type="submit" name="loginl" value="login">
+                            view
+                        </button>
+                    </form>
+                    <div class="container">
+                        <div id="events-list">
+                            {% for event in events %}
+                            <div class="card">
+                                <div class="card-details">
+                                    <p class="text-body">Event id:{{ event.id }}</p>
+                                    <p class="text-title">Name : {{ event.eventName }}</p>
+                                    <p class="text-body">Date: {{ event.eventDate }}</p>
+                                    <p class="text-body">Start Time: {{ event.startTime }}</p>
+                                    <p class="text-body">End Time: {{ event.endTime }}</p>
+
+
+                                </div>
+                                {% for event_item in events %}
+                                <form id="delete-event-{{ event.id }}" method="POST"
+                                    action="/adminviews/delete_event/{{ event.id }}">
+                                    <button class="card-button" type="submit">Delete</button>
+                                </form>
+                                {% endfor %}
+
+
+
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <!-- <div id="right">
+                <h3 id="monthAndYear"></h3>
+                <div class="button-container-calendar">
+                    <button id="previous" onclick="previous()">
+                        ‹
+                    </button>
+                    <button id="next" onclick="next()">
+                        ›
+                    </button>
+                </div>
+                <table class="table-calendar" id="calendar" data-lang="en">
+                    <thead id="thead-month"></thead>
+                     Table body for displaying the calendar 
+                    <tbody id="calendar-body"></tbody>
+                </table>
+                <div class="footer-container-calendar">
+                    <label for="month">Jump To: </label>
+                     Dropdowns to select a specific month and year 
+                    <select id="month" onchange="jump()">
+                        <option value=0>Jan</option>
+                        <option value=1>Feb</option>
+                        <option value=2>Mar</option>
+                        <option value=3>Apr</option>
+                        <option value=4>May</option>
+                        <option value=5>Jun</option>
+                        <option value=6>Jul</option>
+                        <option value=7>Aug</option>
+                        <option value=8>Sep</option>
+                        <option value=9>Oct</option>
+                        <option value=10>Nov</option>
+                        <option value=11>Dec</option>
+                    </select>
+                     Dropdown to select a specific year 
+                    <select id="year" onchange="jump()"></select>
+                </div> 
+            </div> -->
+            </div>
+        </div>
+        <!-- Include the JavaScript file for the calendar functionality -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                // Function to handle form submission
+                $('form').submit(function (event) {
+                    event.preventDefault(); // Prevent default form submission
+
+                    // AJAX request to delete the event
+                    var form = $(this);
+                    var url = form.attr('action');
+                    $.ajax({
+                        type: 'POST',
+                        url: url,
+                        data: form.serialize(),
+                        success: function (response) {
+                            if (response.message && response.message !== "No events to display") {
+                                // Show the success message
+                                //alert(response.message);
+                            } else {
+                                // Show a custom message for no events
+                                //alert("No events to display");
+                            }
+                            // Redirect to app.py route
+                            window.location.href = "/adminviews";
+                        },
+                        error: function (xhr, status, error) {
+                            // Show error message if deletion fails
+                            alert("Error: " + xhr.responseText);
+                        }
+                    });
+                });
+            });
+        </script>
+
+</body>
+
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Events</title>
+  <link rel="stylesheet" type="text/css" href="static/css/event.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="static/css/style.css">
+  <link rel="stylesheet" href="static/css/bootstrap.min.css" />
+  <script>
+    function toggleDescription(button) {
+      window.location.href = '/register';
+    }
+  </script>
+</head>
+
+<body>
+  <header>
+    <div class="container-fluid top-nav">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-4">
+            <div id="google_translate_element"></div>
+          </div>
+          <div class="col-sm-4">
+            <p style="margin-top: 10px;text-align: center;color: white"><i class="fa fa-phone "></i>
+              8519943010 | <i class="fa fa-envelope "></i> info@sportsportal.com</p>
+          </div>
+          <!-- <div class="col-sm-4">
+            <ul class="login-icon">
+              <li style="border-right: 2px solid white"><a href=""><span class="fa fa-sign-in">&nbspLogin</span></a></li>
+              <li><a href=""><span class="fa fa-edit">&nbsppredict</span></a></li>
+            </ul>
+          </div> -->
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid " id="marquee_div">
+      <marquee>
+        <p>Champions keep playing until they get it right.</p>
+      </marquee>
+
+
+
+    </div>
+    <div class="container">
+      <div class="row">
+
+        <div class="col-sm-6">
+          <img src="static\images\sportsportal.png" width="150px" height="90" align="left" style="margin: 10px">
+          <!-- <h4 style="margin-top: 15px">National E-sports Portal</h1>
+            <p>
+              Ministry of Youth Affairs & Sports<br>
+              Government of India
+            </p> -->
+
+        </div>
+        <!-- <div class="col-sm-6">
+          <img src="static/images/khelo.png" width="200" height="100" align="right">
+          <img src="static/images/digital.png" width="200" height="100" align="right">
+        </div> -->
+
+
+      </div>
+    </div>
+
+    <nav>
+      <div class="container-fluid main_navbar" id="nav">
+
+        <ul class="main-icons">
+          <li class="active"><a href="/home">Back</a></li>
+          <li>
+            <form id="showEventsForm" action="/Show_Registered_Events" method="POST">
+              <a href="#" onclick="document.getElementById('showEventsForm').submit();">Show Registered Events</a>
+            </form>
+          </li>
+
+        </ul>
+
+
+      </div>
+
+
+    </nav>
+  </header>
+
+  <!-- <h2>Available Events</h2> -->
+  <br>
+  <br>
+
+  <div class="container">
+    <div id="events-list">
+      {% for event in events %}
+      <div class="card">
+        <div class="card-details">
+
+
+          <p class="text-title">Name: {{ event.eventName }}</p>
+          <p class="text-body">event Id: {{ event.id }}</p>
+
+          <p class="text-body">Date: {{ event.eventDate }}</p>
+          <p class="text-body">Start Time: {{ event.startTime }}</p>
+          <p class="text-body">End Time: {{ event.endTime }}</p>
+
+          <p class="text-body event-description">Description: {{ event.eventDescription }}</p>
+        </div>
+
+        <form action="/register_event/{{ event.id }}" method="POST">
+          <button type="submit" class="card-button">Register</button>
+        </form>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  <!-- <script>
+  function toggleDescription(button) {
+  const card = button.parentNode;
+  const description = card.querySelector('.event-description');
+  description.style.display = description.style.display === 'none' ? 'block' : 'none';
+}
+
+</script> -->
+
+
+  <!-- <script src="your_script.js"></script> -->
+
+</body>
+
+</html>

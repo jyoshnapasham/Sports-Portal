@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coaching Centers</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="static/css/event.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="static/css/style.css">
+    <link rel="stylesheet" href="static/css/bootstrap.min.css" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container1 {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid #696565; /* Add light border line */
+            border-right: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+            color: #555;
+        }
+        img {
+            max-width: 100px;
+            height: auto;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container-fluid top-nav">
+          <div class="container">
+            <div class="row">
+              <div class="col-sm-4">
+                <div id="google_translate_element"></div>
+              </div>
+              <div class="col-sm-4">
+                <p style="margin-top: 10px;text-align: center;color: white"><i class="fa fa-phone "></i>
+                  8519943010 | <i class="fa fa-envelope "></i> info@sportsportal.com</p>
+              </div>
+              <!-- <div class="col-sm-4">
+                <ul class="login-icon">
+                  <li style="border-right: 2px solid white"><a href=""><span class="fa fa-sign-in">&nbspLogin</span></a></li>
+                  <li><a href=""><span class="fa fa-edit">&nbsppredict</span></a></li>
+                </ul>
+              </div> -->
+            </div>
+          </div>
+        </div>
+    
+        <div class="container-fluid " id="marquee_div">
+          <marquee>
+            <p>Champions keep playing until they get it right.</p>
+          </marquee>
+    
+    
+    
+        </div>
+        <div class="container">
+          <div class="row">
+    
+            <div class="col-sm-6">
+              <img src="static\images\sportsportal.png" width="150px" height="90" align="left" style="margin: 10px">
+              <!-- <h4 style="margin-top: 15px">National E-sports Portal</h1>
+                <p>
+                  Ministry of Youth Affairs & Sports<br>
+                  Government of India
+                </p> -->
+    
+            </div>
+            <!-- <div class="col-sm-6">
+              <img src="static/images/khelo.png" width="200" height="100" align="right">
+              <img src="static/images/digital.png" width="200" height="100" align="right">
+            </div> -->
+    
+    
+          </div>
+        </div>
+    
+        <nav>
+          <div class="container-fluid main_navbar" id="nav">
+    
+            <ul class="main-icons">
+              
+              <li>
+                <form id="admin" action="/admin" method="POST">
+                  <a href="#" onclick="document.getElementById('admin').submit();">Admin Home</a>
+                </form>
+              </li>
+    
+            </ul>
+    
+    
+          </div>
+    
+    
+        </nav>
+      </header>
+    
+      <!-- <h2>Available Events</h2> -->
+      <br>
+      <br>
+    <div class="container1">
+        <h2>Coaching Centers</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>State</th>
+                    <th>District</th>
+                    <th>Name</th>
+                    <th>Game</th>
+                    <th>Contact Number</th>
+                    <th>Location</th>
+                    
+                    <th>Photo</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for center in coaching_centers %}
+                <tr>
+                    <td>{{ center[6] }}</td>
+                    <td>{{ center[7] }}</td>
+                    <td>{{ center[1] }}</td>  <!-- Name -->
+                    <td>{{ center[2] }}</td>  <!-- Game -->
+                    <td>{{ center[3] }}</td>  <!-- Contact Number -->
+                    <td>
+                        <a href="{{ center[4] }}" target="_blank">
+                            Open in Google Maps
+                        </a>  
+                    </td>
+                    <td><img src="{{ url_for('static', filename='uploads/' + center[5]) }}" alt="Photo"></td>  <!-- Photo -->
+                    <td>
+                        <form action="/delete_coaching_center/{{ center[0] }}" method="post">
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Bootstrap JS (Optional) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
